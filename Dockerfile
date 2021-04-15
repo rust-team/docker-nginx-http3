@@ -3,7 +3,7 @@
 # modules.
 ##################################################
 
-FROM alpine:latest AS builder
+FROM alpine:edge AS builder
 
 LABEL maintainer="Ranadeep Polavarapu <RanadeepPolavarapu@users.noreply.github.com>"
 
@@ -206,7 +206,7 @@ RUN set -x; GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 RUN apk add openssl \
   && openssl req -x509 -newkey rsa:4096 -nodes -keyout /etc/ssl/private/localhost.key -out /etc/ssl/localhost.pem -days 365 -sha256 -subj '/CN=localhost'
 
-FROM alpine:latest
+FROM alpine:edge
 
 COPY --from=builder /usr/sbin/nginx /usr/sbin/nginx-debug /usr/sbin/
 COPY --from=builder /usr/lib/nginx /usr/lib/
